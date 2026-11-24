@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kart | Online Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="promo">
+      Free shipping on orders over $75. Use code <b>SAVE10</b> for 10% off.
+    </div>
+
+    <header class="bar">
+      <a class="logo" href="./" aria-label="Kart home">
+        <span class="mark"
+          ><svg viewBox="0 0 24 24" class="i">
+            <path d="M6 7h12l-1 12H7L6 7z" />
+            <path d="M9 7a3 3 0 0 1 6 0" /></svg
+        ></span>
+        Cart
+      </a>
+      <form class="search" id="searchForm" role="search">
+        <svg viewBox="0 0 24 24" class="i">
+          <circle cx="11" cy="11" r="7" />
+          <path d="M20 20l-3.5-3.5" />
+        </svg>
+        <input
+          id="search"
+          type="search"
+          placeholder="Search products"
+          aria-label="Search products"
+          autocomplete="off"
+          maxlength="60"
+        />
+      </form>
+      <button
+        class="cart-btn"
+        id="openCart"
+        type="button"
+        aria-label="Open cart"
+      >
+        <svg viewBox="0 0 24 24" class="i">
+          <circle cx="9" cy="20" r="1.5" />
+          <circle cx="18" cy="20" r="1.5" />
+          <path d="M2 3h3l2.6 12.4a1 1 0 0 0 1 .8h8.8a1 1 0 0 0 1-.8L20 8H6" />
+        </svg>
+        <span class="count" id="cartCount" hidden>0</span>
+      </button>
+    </header>
+
+    <main class="shop">
+      <button
+        class="btn filter-toggle"
+        id="filterToggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="filters"
+      >
+        Filters
+      </button>
+
+      <aside class="filters" id="filters" aria-label="Product filters">
+        <div class="f-head">
+          <h2>Filters</h2>
+          <button class="link" id="clearAll" type="button">Clear all</button>
+        </div>
+
+        <div class="fgroup" role="group" aria-labelledby="h-cat">
+          <h3 id="h-cat">Category</h3>
+          <div id="catList"></div>
+        </div>
+
+        <div class="fgroup" role="group" aria-labelledby="h-price">
+          <h3 id="h-price">Price (USD)</h3>
+          <div class="price-row">
+            <label
+              >Min
+              <input
+                id="minPrice"
+                type="number"
+                min="0"
+                step="1"
+                inputmode="decimal"
+                placeholder="0"
+            /></label>
+            <label
+              >Max
+              <input
+                id="maxPrice"
+                type="number"
+                min="0"
+                step="1"
+                inputmode="decimal"
+                placeholder="Any"
+            /></label>
+          </div>
+          <p class="err" id="priceErr" hidden>
+            The minimum price is higher than the maximum.
+          </p>
+        </div>
+
+        <div class="fgroup" role="group" aria-labelledby="h-rate">
+          <h3 id="h-rate">Rating</h3>
+          <label class="check"
+            ><input type="radio" name="rating" value="0" checked /> Any
+            rating</label
+          >
+          <label class="check"
+            ><input type="radio" name="rating" value="4" /> 4 stars &amp;
+            up</label
+          >
+          <label class="check"
+            ><input type="radio" name="rating" value="3" /> 3 stars &amp;
+            up</label
+          >
+        </div>
+
+        <div class="fgroup" role="group" aria-labelledby="h-more">
+          <h3 id="h-more">More</h3>
+          <label class="check"
+            ><input type="checkbox" id="fStock" /> In stock only</label
+          >
+          <label class="check"
+            ><input type="checkbox" id="fSale" /> On sale</label
+          >
+          <label class="check"
+            ><input type="checkbox" id="fSaved" /> Saved items</label
+          >
+        </div>
+      </aside>
+
+      <section class="results" aria-label="Products">
+        <div class="toolbar">
+          <p id="resultCount" aria-live="polite"></p>
+          <label class="sort"
+            >Sort by
+            <select id="sort">
+              <option value="featured">Featured</option>
+              <option value="price-asc">Price: low to high</option>
+              <option value="price-desc">Price: high to low</option>
+              <option value="rating">Top rated</option>
+              <option value="newest">Newest</option>
+            </select>
+          </label>
+        </div>
+        <div class="chips" id="chips"></div>
+        <div class="grid" id="grid"></div>
+        <div class="more">
+          <button class="btn" id="loadMore" type="button">
+            Show more products
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="modal" aria-label="Product details"></dialog>
+
+    <dialog id="cart" class="drawer" aria-label="Shopping cart">
+      <div class="d-head">
+        <h2>Your cart</h2>
+        <button
+          class="x"
+          type="button"
+          data-action="close-cart"
+          aria-label="Close cart"
+        >
+          &times;
+        </button>
+      </div>
+      <div class="d-body" id="cartBody"></div>
+      <div class="d-foot" id="cartFoot"></div>
+    </dialog>
+
+    <div id="toasts" popover="manual" aria-live="polite"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
